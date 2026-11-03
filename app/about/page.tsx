@@ -1,10 +1,10 @@
 import SkillCard from "@/components/SkillCard";
 
 const skillCategories = [
-  { category: "Languages", skills: ["JavaScript", "TypeScript", "HTML", "CSS"] },
-  { category: "Frameworks", skills: ["React", "Next.js", "Express", "Tailwind CSS"] },
-  { category: "Databases", skills: ["MongoDB", "PostgreSQL"] },
-  { category: "Tools", skills: ["Git", "GitHub", "VS Code", "npm"] },
+  { category: "Languages", skills: ["JavaScript", "TypeScript", "Python", "HTML", "CSS"] },
+  { category: "Frameworks", skills: ["Next.js", "React", "Express", "Tailwind CSS"] },
+  { category: "Databases", skills: ["MongoDB"] },
+  { category: "Tools", skills: ["Git", "GitHub", "VS Code", "Node.js", "Vite", "Swagger"] },
 ];
 
 export default function About() {
