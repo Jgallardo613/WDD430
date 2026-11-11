@@ -1,23 +1,12 @@
+import { connection } from "next/server";
 import ProjectList from "@/components/ProjectList";
+import { getProjects } from "@/lib/projects-db";
 
-const projects = [
-  {
-    title: "OrbitWatch",
-    description:
-      "A space situational awareness dashboard with live satellite tracking, NOAA space weather feeds, and a satellite watchlist.",
-    technologies: ["JavaScript", "HTML", "CSS", "Vite", "N2YO API", "NOAA API"],
-    link: "https://github.com/Jgallardo613/Orbitwatch",
-  },
-  {
-    title: "Aether LIDAR API",
-    description:
-      "A RESTful API with full CRUD operations, GitHub OAuth authentication, and Swagger documentation.",
-    technologies: ["Node.js", "Express", "MongoDB", "OAuth", "Swagger"],
-    link: "https://github.com/Jgallardo613/aether-lidar-api",
-  },
-];
+export default async function Home() {
+  // Render at request time so the list always reflects the current database.
+  await connection();
+  const projects = await getProjects();
 
-export default function Home() {
   return (
     <div className="flex flex-col gap-8">
       <section>
@@ -26,7 +15,12 @@ export default function Home() {
           Here are some of the projects I&apos;ve built.
         </p>
       </section>
-      <ProjectList projects={projects} />
+      <ProjectList
+        projects={projects.map((project) => ({
+          ...project,
+          link: project.link ?? undefined,
+        }))}
+      />
     </div>
   );
 }
