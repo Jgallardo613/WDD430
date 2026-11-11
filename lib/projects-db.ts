@@ -31,6 +31,10 @@ export async function getProjects(type?: string): Promise<Project[]> {
   return rows;
 }
 
+export async function getProjectsByType(type: string): Promise<Project[]> {
+  return getProjects(type);
+}
+
 export async function getProjectById(id: number): Promise<Project | null> {
   const { rows } = await sql<Project>`
     SELECT id, title, description, technologies, link, type
