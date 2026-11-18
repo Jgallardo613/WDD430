@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import ProjectForm from "@/components/ProjectForm";
-import { updateProject } from "@/lib/actions";
+import EditProjectForm from "@/components/EditProjectForm";
 import { getProjectById } from "@/lib/projects-db";
 
 export default async function EditProjectPage({
@@ -15,18 +14,16 @@ export default async function EditProjectPage({
   const project = await getProjectById(id);
   if (!project) notFound();
 
-  const updateProjectWithId = updateProject.bind(null, id);
-
   return (
     <div className="flex flex-col gap-8">
       <h1 className="text-4xl font-bold tracking-tight">Edit Project</h1>
-      <ProjectForm
-        action={updateProjectWithId}
-        submitLabel="Save changes"
+      <EditProjectForm
+        id={id}
         defaultValues={{
           title: project.title,
           description: project.description,
           technologies: project.technologies.join(", "),
+          yearCompleted: project.year_completed?.toString() ?? "",
         }}
       />
     </div>
