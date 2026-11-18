@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import Pagination from "@/components/Pagination";
 import ProjectList from "@/components/ProjectList";
@@ -42,11 +43,19 @@ export default async function ProjectsPage({
 
   return (
     <div className="flex flex-col gap-8">
-      <section>
-        <h1 className="text-4xl font-bold tracking-tight">All Projects</h1>
-        <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
-          Search by title, description, or technology.
-        </p>
+      <section className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">All Projects</h1>
+          <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+            Search by title, description, or technology.
+          </p>
+        </div>
+        <Link
+          href="/projects/create"
+          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        >
+          New project
+        </Link>
       </section>
       <ProjectSearch />
       {/* Keyed so the skeleton shows again whenever the search or page changes. */}

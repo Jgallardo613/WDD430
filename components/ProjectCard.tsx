@@ -1,4 +1,8 @@
+import Link from "next/link";
+import { deleteProject } from "@/lib/actions";
+
 type ProjectCardProps = {
+  id: number;
   title: string;
   description: string;
   technologies: string[];
@@ -6,11 +10,14 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({
+  id,
   title,
   description,
   technologies,
   link,
 }: ProjectCardProps) {
+  const deleteProjectWithId = deleteProject.bind(null, id);
+
   return (
     <article className="flex flex-col gap-4 rounded-lg border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <h3 className="text-xl font-semibold">{title}</h3>
@@ -25,16 +32,32 @@ export default function ProjectCard({
           </li>
         ))}
       </ul>
-      {link && (
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-auto text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+      <div className="mt-auto flex items-center gap-4">
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+          >
+            View project &rarr;
+          </a>
+        )}
+        <Link
+          href={`/projects/${id}/edit`}
+          className="ml-auto text-sm font-medium text-zinc-700 hover:underline dark:text-zinc-300"
         >
-          View project &rarr;
-        </a>
-      )}
+          Edit
+        </Link>
+        <form action={deleteProjectWithId}>
+          <button
+            type="submit"
+            className="text-sm font-medium text-red-600 hover:underline dark:text-red-400"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
     </article>
   );
 }
